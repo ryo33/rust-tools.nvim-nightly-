@@ -55,6 +55,9 @@ function M.setup(opts)
   local external_docs = require("rust-tools.external_docs")
   M.external_docs = external_docs
 
+  local fly_check = require("rust-tools.fly_check")
+  M.fly_check = fly_check
+
   local hover_actions = require("rust-tools.hover_actions")
   M.hover_actions = hover_actions
 

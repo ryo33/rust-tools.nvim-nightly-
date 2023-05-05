@@ -41,6 +41,9 @@ local function setup_commands()
       rt.debuggables.debuggables,
     },
     RustExpandMacro = { rt.expand_macro.expand_macro },
+    RustFlyCheck = {
+      rt.fly_check.fly_check,
+    },
     RustOpenExternalDocs = {
       rt.external_docs.open_external_docs,
     },
