@@ -152,14 +152,6 @@ function M.setup(opts)
 
   lsp.setup()
   commands.setup_lsp_commands()
-
-  if opts.open.dap ~= false then
-    local rt_dap = require("rust-tools.dap")
-    M.dap = rt_dap
-    if pcall(require, "dap") then
-      rt_dap.setup_adapter()
-    end
-  end
 end
 
 return M
