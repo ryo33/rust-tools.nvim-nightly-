@@ -29,11 +29,12 @@ open = {
   parent_module = true,
   runnables = true,
 },
+```
 
 ## inlay hints priority: https://github.com/simrat39/rust-tools.nvim/pull/361
 ```lua
 -- inlay hints priority
 inlay_hints = {
   priority = 100,
-}
+},
 ```
