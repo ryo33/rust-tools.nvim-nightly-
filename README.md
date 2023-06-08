@@ -13,7 +13,7 @@ Please read below before using.
 
 If you find a stabilized fork, try https://github.com/MunifTanjim/rust-tools.nvim/commits/patched.
 
-# choice module from https://github.com/simrat39/rust-tools.nvim/pull/382
+## choice module: https://github.com/simrat39/rust-tools.nvim/pull/382
 ```lua
 -- choice module you use to speed up setuptime
 open = {
@@ -29,3 +29,11 @@ open = {
   parent_module = true,
   runnables = true,
 },
+
+## inlay hints priority: https://github.com/simrat39/rust-tools.nvim/pull/361
+```lua
+-- inlay hints priority
+inlay_hints = {
+  priority = 100,
+}
+```
