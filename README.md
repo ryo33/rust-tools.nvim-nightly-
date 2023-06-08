@@ -5,11 +5,13 @@ This is a customized fork of https://github.com/simrat39/rust-tools.nvim with un
 Please read below before using.
 
 - I use this fork as daily driver for my works that mostly use Rust.
-- I merge the pull-requests without my own review, and push to here if any appearant problem happens.
+- I merge the pull-requests without my own review, and push to here if no appearant problem happens.
 - If I find bugs or improvements, I'll provide notice or bug fix commit to the source pull-request.
 - This fork may contain my own improvements and bug fixes not related to the pull-requests just for me.
 - If the changes seem helpful to anyone other than me, I'll open pull-request to simrat39/rust-tools.nvim when the change is stabilized.
 - If you find not merged one, feel free to open an issue.
+
+If you find a stabilized fork, try https://github.com/MunifTanjim/rust-tools.nvim/commits/patched.
 
 # choice module from https://github.com/simrat39/rust-tools.nvim/pull/382
 ```lua
