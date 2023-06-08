@@ -9,6 +9,9 @@ end
 
 function M.execute_rust_analyzer_command() end
 
+M._state = { winnr = nil, parent_bufnr = nil, commands = nil }
+local set_keymap_opt = { noremap = true, silent = true }
+
 local function parse_commands(commands, ctx)
   local actions = {}
 
@@ -72,6 +75,21 @@ function M.handler(_, result, ctx)
   end
 
   rt.config.options.tools.hover_actions.handler(options)
+end
+
+---Scroll the hover window
+---@param offset number, scroll up if offset > 0 else scroll down
+function M.scroll_hover(offset)
+  if M._state.winnr ~= nil then
+    local cmd = [[exec "norm! \<c-d>"]]
+    if offset < 0 then
+      cmd = [[exec "norm! \<c-u>"]]
+    end
+    vim.api.nvim_win_call(
+      M._state.winnr,
+      function() vim.cmd(cmd) end
+    )
+  end
 end
 
 -- Sends the request to rust-analyzer to get hover actions and handle it

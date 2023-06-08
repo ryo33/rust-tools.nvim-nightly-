@@ -38,3 +38,22 @@ inlay_hints = {
   priority = 100,
 },
 ```
+
+## hover window keymaps option: https://github.com/simrat39/rust-tools.nvim/pull/189
+
+```lua
+hover_actions = {
+	-- keymaps for scrolling the hover window
+	keymaps = {
+		-- enable the keymaps
+		-- default: false
+		enable = false,
+		-- scroll up
+		-- default: "<c-j>"
+		scroll_up = "<c-j>",
+		-- scroll down
+		-- default: "<c-k>"
+		scroll_down = "<c-k>",
+	},
+},
+```
