@@ -8,7 +8,8 @@ _G.rust_tools_get_graphviz_backends = function()
 end
 
 local defaults = {
-  tools = { -- rust-tools options
+  tools = {
+    -- rust-tools options
 
     -- how to execute terminal commands
     -- options right now: termopen / quickfix
@@ -63,12 +64,23 @@ local defaults = {
 
       -- The color of the hints
       highlight = "Comment",
+
+      -- priority of the virtual text
+      priority = 100,
     },
 
     -- options same as lsp hover / vim.lsp.util.open_floating_preview()
     hover_actions = {
+      -- the handler for the hover action results. Can be one of
+      -- - "rust-tools.hover_action_handlers.detailed":
+      --   A floating popup that shows all hover action information.
+      -- - "rust-tools.hover_action_handlers.builtin":
+      --   Uses the built-in `vim.ui.select` to select an action, if an action
+      --   is available. The `kind` option will be set to `"hoveraction"`.
+      -- - a require path that returns a custom handler function
+      handler = require("rust-tools.hover_action_handlers.builtin"),
 
-      -- the border that is used for the hover window
+      -- the border that is used for the hover window for the detailed handler.
       -- see vim.api.nvim_open_win()
       border = {
         { "╭", "FloatBorder" },
@@ -81,15 +93,20 @@ local defaults = {
         { "│", "FloatBorder" },
       },
 
-      -- Maximal width of the hover window. Nil means no max.
+      -- Maximal width of the hover window for the detailed handler.
+      -- Nil means no max.
       max_width = nil,
 
-      -- Maximal height of the hover window. Nil means no max.
+      -- Maximal height of the hover window for the detailed handler.
+      -- Nil means no max.
       max_height = nil,
 
-      -- whether the hover action window gets automatically focused
+      -- whether the detailed hover action window gets automatically focused
       -- default: false
       auto_focus = false,
+
+      -- the prompt for the built-in handler.
+      prompt = "Hover actions",
     },
 
     -- settings for showing the crate graph based on graphviz and the dot
@@ -187,12 +204,28 @@ local defaults = {
       name = "rt_lldb",
     },
   },
+
+  -- choice module you use
+  open = {
+    crate_graph = true,
+    expand_macro = true,
+    external_docs = true,
+    debuggables = true,
+    hover_range = true,
+    workspace_refresh = true,
+    move_item = true,
+    standalone = true,
+    dap = true,
+    parent_module = true,
+    runnables = true,
+  },
 }
 
 M.options = {
   tools = {},
   server = {},
   dap = {},
+  open = {},
 }
 
 function M.setup(options)

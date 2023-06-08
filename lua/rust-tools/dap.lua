@@ -2,6 +2,11 @@ local rt = require("rust-tools")
 
 local M = {}
 
+local has_libs = {
+  ---@type nil|boolean
+  dap = nil,
+}
+
 ---For the heroes who want to use it
 ---@param codelldb_path string
 ---@param liblldb_path string
@@ -17,7 +22,7 @@ function M.get_codelldb_adapter(codelldb_path, liblldb_path)
   }
 end
 
-function M.setup_adapter()
+local function setup_adapter()
   local dap = require("dap")
   local opts = rt.config.options
 
@@ -50,7 +55,16 @@ local function scheduled_error(err)
 end
 
 function M.start(args)
-  if not pcall(require, "dap") then
+  if has_libs.dap == nil then
+    if pcall(require, "dap") then
+      has_libs.dap = true
+      setup_adapter()
+    else
+      has_libs.dap = false
+    end
+  end
+
+  if not has_libs.dap then
     scheduled_error("nvim-dap not found.")
     return
   end
@@ -134,6 +148,26 @@ function M.start(args)
             args = args.executableArgs or {},
             cwd = args.workspaceRoot,
             stopOnEntry = false,
+            -- Add rust types
+            initCommands = function()
+              -- Find out where to look for the pretty printer Python module
+              local rustc_sysroot = vim.fn.trim(vim.fn.system('rustc --print sysroot'))
+
+              local script_import = 'command script import "' .. rustc_sysroot .. '/lib/rustlib/etc/lldb_lookup.py"'
+              local commands_file = rustc_sysroot .. '/lib/rustlib/etc/lldb_commands'
+
+              local commands = {}
+              local file = io.open(commands_file, 'r')
+              if file then
+                for line in file:lines() do
+                  table.insert(commands, line)
+                end
+                file:close()
+              end
+              table.insert(commands, 1, script_import)
+
+              return commands
+            end,
 
             -- if you change `runInTerminal` to true, you might need to change the yama/ptrace_scope setting:
             --
