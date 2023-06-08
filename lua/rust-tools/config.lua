@@ -105,10 +105,8 @@ local defaults = {
       -- default: false
       auto_focus = false,
 
-<<<<<<< HEAD
       -- the prompt for the built-in handler.
       prompt = "Hover actions",
-=======
       -- keymaps for scrolling the hover window
       keymaps = {
         -- enable the keymaps
@@ -121,7 +119,6 @@ local defaults = {
         -- default: "<c-k>"
         scroll_down = "<c-k>",
       },
->>>>>>> zuoxinyu/master
     },
 
     -- settings for showing the crate graph based on graphviz and the dot
