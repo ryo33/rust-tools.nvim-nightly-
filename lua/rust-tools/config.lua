@@ -71,7 +71,7 @@ local defaults = {
       --   Uses the built-in `vim.ui.select` to select an action, if an action
       --   is available. The `kind` option will be set to `"hoveraction"`.
       -- - a require path that returns a custom handler function
-      handler = "rust-tools.hover_action_handlers.detailed",
+      handler = require("rust-tools.hover_action_handlers.buildin"),
 
       -- the border that is used for the hover window for the detailed handler.
       -- see vim.api.nvim_open_win()

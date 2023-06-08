@@ -51,13 +51,13 @@ function M.handler(_, result, ctx)
   end
 
   if
-    not (
-      rt.config
-      and rt.config.options
-      and rt.config.options.tools
-      and rt.config.options.tools.hover_actions
-      and rt.config.options.tools.hover_actions.handler
-    )
+      not (
+        rt.config
+        and rt.config.options
+        and rt.config.options.tools
+        and rt.config.options.tools.hover_actions
+        and rt.config.options.tools.hover_actions.handler
+      )
   then
     -- return { 'No handler configured' }
     return
@@ -71,8 +71,7 @@ function M.handler(_, result, ctx)
     options.actions = parse_commands(result.actions[1].commands, ctx)
   end
 
-  local handler = require(rt.config.options.tools.hover_actions.handler)
-  handler(options)
+  rt.config.options.tools.hover_actions.handler(options)
 end
 
 -- Sends the request to rust-analyzer to get hover actions and handle it
