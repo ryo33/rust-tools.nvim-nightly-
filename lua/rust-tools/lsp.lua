@@ -49,6 +49,10 @@ local function setup_commands()
     }
   end
 
+  table_list.RustFlyCheck = {
+    rt.fly_check.fly_check,
+  }
+
   if open.move_item then
     table_list.RustMoveItemDown = {
       rt.move_item.move_item,
@@ -113,6 +117,9 @@ local function setup_commands()
     rt.inlay_hints.disable,
   }
 
+  table_list.RustToggleInlayHints = {
+    rt.inlay_hints.toggle,
+  }
 
 
   table_list.RustLastRun = {

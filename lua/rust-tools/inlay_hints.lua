@@ -16,7 +16,7 @@ end
 
 -- Disable hints and clear all cached buffers
 function M.disable(self)
-  self.disable = false
+  self.enabled = false
   M.disable_cache_autocmd()
 
   for k, _ in pairs(self.cache) do
@@ -42,6 +42,15 @@ end
 -- Set inlay hints only for the current buffer
 function M.set(self)
   M.cache_render(self, 0)
+end
+
+-- Toggles inlay hints state globally. Uses disable and enable internally
+function M.toggle(self)
+  if self.enabled then
+    M.disable(self)
+  else
+    M.enable(self)
+  end
 end
 
 -- Clear hints only for the current buffer
@@ -139,7 +148,7 @@ local function parse_hints(result, bufnr)
     end
 
     local line_len =
-      string.len(vim.api.nvim_buf_get_lines(bufnr, line, line + 1, true)[1])
+      string.len(vim.api.nvim_buf_get_lines(bufnr, line, line + 1, false)[1] or "")
     max_line_len = math.max(max_line_len, line_len)
 
     add_line()
@@ -251,6 +260,7 @@ local function render_line(line, line_hints, bufnr, max_line_len)
         { virt_text, opts.highlight },
       },
       hl_mode = "combine",
+      priority = opts.priority
     })
   end
 end

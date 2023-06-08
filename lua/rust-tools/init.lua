@@ -11,6 +11,7 @@ local M = {
   inlay_hints = {
     enable = nil,
     disable = nil,
+    toggle = nil,
     set = nil,
     unset = nil,
     cache = nil,
@@ -67,6 +68,9 @@ function M.setup(opts)
     M.external_docs = external_docs
   end
 
+  local fly_check = require("rust-tools.fly_check")
+  M.fly_check = fly_check
+
   local hover_actions = require("rust-tools.hover_actions")
   M.hover_actions = hover_actions
 
@@ -95,6 +99,9 @@ function M.setup(opts)
     end,
     render = function()
       inlay.render(hints)
+    end,
+    toggle = function()
+      inlay.toggle(hints)
     end,
   }
 
